@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #2563eb;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+}
+
+/* On enlève le flex du body qui casse le layout de Leaflet */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #F8F9FA;
+}
+
+#root {
+  width: 100%;
+  height: 100vh; /* Indispensable pour que flex-1 fonctionne */
+}
+
+.leaflet-container {
+  background-color: #f0f0f0; /* Pour voir si la zone est là même sans tuiles */
+}
