@@ -85,5 +85,5 @@ html, body, #root, .flex-1 {
 .leaflet-container {
   height: 100% !important;
   width: 100% !important;
-  z-index: 1; /* S'assure qu'elle ne passe pas derrière un autre élément */
+  z-index: 0 !important;
 }

@@ -33,7 +33,7 @@ const App: React.FC = () => {
             <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
             {/* Ajout de pt-20 (padding-top) pour compenser la barre fixe */}
-            <main className="flex-1 pt-20 px-4 sm:px-6">
+            <main className="flex-1 pt-20 px-4 sm:px-6 relative z-10">
                 <div className="w-full" style={{paddingTop: '2.5em'}}>
                     {renderContent()}
                 </div>

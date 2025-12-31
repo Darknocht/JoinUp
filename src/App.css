@@ -21,4 +21,5 @@ body {
 
 .leaflet-container {
   background-color: #f0f0f0; /* Pour voir si la zone est là même sans tuiles */
+  z-index: 0 !important;
 }

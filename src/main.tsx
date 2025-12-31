@@ -5,7 +5,7 @@ import App from './App.tsx'
 import 'leaflet/dist/leaflet.css'
 
 createRoot(document.getElementById('root')!).render(
-  //<StrictMode>
+  <StrictMode>
     <App />
-  //</StrictMode>,
+  </StrictMode>,
 )
