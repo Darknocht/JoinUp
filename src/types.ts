@@ -24,6 +24,7 @@ export interface Session {
   currentPlayers: number;
   maxPlayers: number;
   description: string;
+  image: string;
 }
 
 export interface ActivityEntry {

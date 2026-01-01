@@ -183,7 +183,7 @@ export const DiscoverPage: React.FC = () => {
         {selectedFacility && (
             <div
                 className="fixed w-full inset-0 z-[10000] flex items-center justify-center bg-black/45 backdrop-blur-md p-4"
-                style={{marginTop: '2.5em'}}
+                style={{marginTop: '2.5em', backgroundColor: 'rgba(0,0,0,.5)'}}
                 onClick={() => setSelectedFacility(null)}
             >
               <div
