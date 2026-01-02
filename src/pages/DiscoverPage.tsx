@@ -1,38 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useDarkMode } from "../usefullFunctions.ts";
-import {DollarSign, Funnel, MapPin, Star, X} from "lucide-react";
+import {useDarkMode, getTheme} from "../usefullFunctions.ts";
+import { Funnel, MapPin } from "lucide-react";
+import { FacilityCard } from '../components/FacilityCard';
+import { FacilityDetailsModal } from '../components/FacilityDetailsModal';
+import type {SportType} from "../types.ts";
+import {facilitiesData} from "../mockData.ts";
+import {createCustomIcon} from "../usefullFunctions.ts";
 
-// --- Configuration des Icônes ---
-const createCustomIcon = (color: string) => L.divIcon({
-  html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-  className: '',
-  iconSize: [16, 16],
-  iconAnchor: [8, 8],
-});
+const sports: SportType[] = ['Padel', 'Basketball', 'Football', 'Tennis', 'Volleyball'];
 
 const blueIcon = createCustomIcon('#2563eb');
 const grayIcon = createCustomIcon('#9ca3af');
 
-// --- Types & Données ---
-type SportType = 'Padel' | 'Basketball' | 'Football' | 'Tennis' | 'Volleyball';
-
-const sports: SportType[] = ['Padel', 'Basketball', 'Football', 'Tennis', 'Volleyball'];
-
-const facilitiesData = [
-  { id: '1', name: 'Wrocław Padel Club', sport: 'Padel', address: 'ul. Sportowa 12, Wrocław', rating: 4.8, pricePerHour: 80, tags: ['Parking', 'Showers', 'Equipment Rental', 'Outside and Inside'], image: 'https://images.unsplash.com/photo-1592910710242-70656469236a?auto=format&fit=crop&w=600&q=80', position: [51.1079, 17.0385] as [number, number], isAvailable: true },
-  { id: '2', name: 'Arena Basketball Center', sport: 'Basketball', address: 'ul. Grabiszyńska 45, Wrocław', rating: 4.6, pricePerHour: 60, tags: ['Indoor Court', 'Lockers', 'LED Lighting', 'Parking', 'Showers'], image: 'https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&w=600&q=80', position: [51.0950, 17.0150] as [number, number], isAvailable: true },
-  { id: '3', name: 'Stadion Olimpijski', sport: 'Football', address: 'ul. Paderewskiego 35, Wrocław', rating: 4.9, pricePerHour: 120, tags: ['Grass Field', 'Floodlights', 'Changing Rooms', 'Parking'], image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80', position: [51.1180, 17.0980] as [number, number], isAvailable: false }
-];
-
 const ResizeMap = () => {
   const map = useMap();
   useEffect(() => {
-    const timer = setTimeout(() => {
-      map.invalidateSize();
-    }, 300);
+    const timer = setTimeout(() => { map.invalidateSize(); }, 300);
     return () => clearTimeout(timer);
   }, [map]);
   return null;
@@ -40,16 +25,14 @@ const ResizeMap = () => {
 
 export const DiscoverPage: React.FC = () => {
   const isDarkMode = useDarkMode();
+  const theme = getTheme(isDarkMode);
+
   const [activeSport, setActiveSport] = useState<SportType | 'All'>('All');
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // AJOUT DE L'ETAT POUR LA POPUP
   const [selectedFacility, setSelectedFacility] = useState<any>(null);
 
   const bgPage = isDarkMode ? '#1E1E1E' : '#FFFFFF';
-
-  const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const scrollToFacility = (id: string) => {
@@ -60,19 +43,10 @@ export const DiscoverPage: React.FC = () => {
 
   const filteredFacilities = facilitiesData.filter(facility => {
     const matchesSport = activeSport === 'All' || facility.sport === activeSport;
-    const matchesSearch =
-        facility.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = facility.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         facility.address.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesSport && matchesSearch;
   });
-
-  const theme = {
-    bg: isDarkMode ? 'bg-[#0f0f0f]' : 'bg-[#F9FAFB]',
-    card: isDarkMode ? 'bg-[#1E1E1E] border-white/5' : 'bg-white border-gray-100',
-    text: isDarkMode ? 'text-white' : 'text-gray-900',
-    subText: isDarkMode ? 'text-gray-400' : 'text-gray-500',
-    input: isDarkMode ? 'bg-[#1E1E1E] text-white' : 'bg-[#F1F3F5] text-gray-700',
-  };
 
   return (
       <div className={`flex flex-col lg:flex-row h-screen w-full ${theme.bg} font-sans overflow-hidden relative`}>
@@ -119,7 +93,7 @@ export const DiscoverPage: React.FC = () => {
         </div>
 
         {/* --- SECTION LISTE (DROITE) --- */}
-        <div ref={listRef} className="w-full lg:w-1/2 flex flex-col p-8 overflow-y-auto no-scrollbar h-full order-1 lg:order-2">
+        <div className="w-full lg:w-1/2 flex flex-col p-8 overflow-y-auto no-scrollbar h-full order-1 lg:order-2">
           <header className="mb-8">
             <h1 className={`text-2xl font-bold ${theme.text} mb-6`}>Discover Sports Facilities</h1>
             <div className="flex gap-3 mb-6">
@@ -149,95 +123,24 @@ export const DiscoverPage: React.FC = () => {
 
           <div className="space-y-4">
             {filteredFacilities.map((facility) => (
-                <div key={facility.id} ref={el => itemRefs.current[facility.id] = el} className={`${theme.card} border rounded-[24px] overflow-hidden flex h-48 transition-all duration-500 ${highlightedId === facility.id ? 'ring-2 ring-blue-500 scale-[1.02] shadow-xl' : 'shadow-sm hover:shadow-md'}`}>
-                  <div className="w-[280px] h-[280px] shrink-0 overflow-hidden shadow-lg" style={{marginRight: '1em'}}>
-                    <img src={facility.image} alt={facility.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1 p-5 flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start">
-                        <h3 className={`text-lg font-bold ${theme.text}`}>{facility.name} <span className="border rounded-[24px] bg-gray-100 dark:bg-white/5 text-[10px] px-2 py-0.5 rounded font-bold text-gray-500" style={{paddingLeft: '5px', paddingRight: '5px'}}>{facility.sport}</span></h3>
-                      </div>
-                      <p className={`${theme.subText} text-xs mt-1`}><MapPin size={18} style={{marginRight: '5px'}}/>{facility.address}</p>
-                      <div className="flex items-center gap-4 mt-3">
-                        <span className="text-yellow-400 text-xs"><Star size={20} fill="#FDC700" color="#FDC700" /> <span className={theme.text}>{facility.rating}</span></span>
-                        <span className={`text-xs font-bold ${theme.text}`}><DollarSign size={18} style={{marginLeft: '10px'}} />{facility.pricePerHour} PLN <span className="text-gray-400 font-normal">/hour</span></span>
-                      </div>
-                      <div className="flex gap-2 mt-3">
-                        {facility.tags.slice(0, 3).map(tag => (
-                            <span key={tag} className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 rounded-md text-gray-500 font-medium" style={{paddingLeft: '5px', paddingRight: '5px', marginTop: '10px', marginBottom: '10px', marginRight: '5px'}}>{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="flex-1 bg-black text-white text-xs font-bold py-2.5 rounded-xl transition-colors hover:bg-gray-800">Book Now</button>
-                      {/* BOUTON DETAILS QUI OUVRE LA POPUP */}
-                      <button onClick={() => setSelectedFacility(facility)} className={`px-4 border bg-black text-white text-xs font-bold rounded-xl transition-colors hover:bg-gray-50 dark:hover:bg-white/5`}>Details</button>
-                    </div>
-                  </div>
-                </div>
+                <FacilityCard
+                    key={facility.id}
+                    facility={facility}
+                    theme={theme}
+                    highlightedId={highlightedId}
+                    onDetails={setSelectedFacility}
+                    itemRef={(el: any) => itemRefs.current[facility.id] = el}
+                />
             ))}
           </div>
         </div>
 
         {selectedFacility && (
-            <div
-                className="fixed w-full inset-0 z-[10000] flex items-center justify-center bg-black/45 backdrop-blur-md p-4"
-                style={{marginTop: '2.5em', backgroundColor: 'rgba(0,0,0,.5)'}}
-                onClick={() => setSelectedFacility(null)}
-            >
-              <div
-                  className={`${theme.card} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
-                  onClick={(e) => e.stopPropagation()}
-              >
-                {/* Bouton Fermer */}
-                <button onClick={() => setSelectedFacility(null)} className="absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10" style={{marginLeft: '40em'}}>
-                  <X size={20} /> <span className="text-sm font-bold">Close</span>
-                </button>
-
-                {/* --- COLONNE GAUCHE : PHOTO --- */}
-                <div className="w-full md:w-auto flex justify-center shrink-0">
-                  <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-[24px] overflow-hidden shadow-xl">
-                    <img
-                        src={selectedFacility.image}
-                        alt={selectedFacility.name}
-                        className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* --- COLONNE DROITE : CONTENU --- */}
-                <div className="w-full flex flex-col overflow-y-auto no-scrollbar">
-                  <h3 className={`text-lg font-bold ${theme.text}`} style={{marginBottom: '0em'}}>{selectedFacility.name} <span className="border rounded-[24px] bg-gray-100 dark:bg-white/5 text-[10px] px-2 py-0.5 rounded font-bold text-gray-500" style={{paddingLeft: '5px', paddingRight: '5px'}}>{selectedFacility.sport}</span></h3>
-
-                  <p className={`${theme.subText} text-sm flex items-center gap-1.5 mb-6`} style={{marginTop: '0em', marginBottom: '0em'}}>
-                    <MapPin size={18} /> {selectedFacility.address}
-                  </p>
-
-                  <div className="flex items-center gap-6 mb-8">
-                    <div className="flex items-center gap-4 mt-3">
-                      <span className="text-yellow-400 text-xs"><Star size={20} fill="#FDC700" color="#FDC700" /> <span className={theme.text}>{selectedFacility.rating}</span></span>
-                      <span className={`text-xs font-bold ${theme.text}`}><DollarSign size={18} style={{marginLeft: '10px'}} />{selectedFacility.pricePerHour} PLN <span className="text-gray-400 font-normal">/hour</span></span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {selectedFacility.tags.map((tag: string) => (
-                        <span key={tag} className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 rounded-md text-gray-500 font-medium" style={{paddingLeft: '5px', paddingRight: '5px', marginTop: '10px', marginBottom: '10px', marginRight: '5px'}}>{tag}</span>
-                    ))}
-                  </div>
-
-                  <p className="text-blue-500 text-sm font-medium mb-8 italic" style={{marginTop: '0em'}}>
-                    Looking for one more player for a friendly doubles match!
-                  </p>
-
-
-                </div>
-                <button className="w-full bg-[#050509] text-white font-bold py-4 rounded-2xl text-lg transition-transform active:scale-95 shadow-lg">
-                  Book Now
-                </button>
-              </div>
-            </div>
+            <FacilityDetailsModal
+                selectedFacility={selectedFacility}
+                theme={theme}
+                onClose={() => setSelectedFacility(null)}
+            />
         )}
       </div>
   );

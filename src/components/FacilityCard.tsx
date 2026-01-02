@@ -1,52 +1,34 @@
-import React from 'react';
-import type { Facility } from '../types';
+import { MapPin, Star, DollarSign } from "lucide-react";
 
-export const FacilityCard: React.FC<{ facility: Facility }> = ({ facility }) => {
+export const FacilityCard = ({ facility, theme, highlightedId, onDetails, itemRef }: any) => {
   return (
-      <div className="bg-white rounded-[2.5rem] flex shadow-sm border border-gray-100 mb-6 w-full hover:shadow-md transition-shadow overflow-hidden h-44">
-
-        {/* 1. BLOC IMAGE : On force la largeur à 160px (w-40) et on empêche tout mouvement */}
-        <div className="w-400 min-w-[160px] max-w-[160px] h-full bg-gray-200">
-          <img
-              src={facility.image}
-              alt={facility.name}
-              className="w-full h-full object-cover"
-          />
+      <div
+          key={facility.id}
+          ref={itemRef}
+          className={`${theme.card} border rounded-[24px] overflow-hidden flex h-48 transition-all duration-500 ${highlightedId === facility.id ? 'ring-2 ring-blue-500 scale-[1.02] shadow-xl' : 'shadow-sm hover:shadow-md'}`}
+      >
+        <div className="w-[280px] h-[280px] shrink-0 overflow-hidden shadow-lg" style={{marginRight: '1em'}}>
+          <img src={facility.image} alt={facility.name} className="w-full h-full object-cover" />
         </div>
-
-        {/* 2. BLOC INFOS : On utilise min-w-0 pour permettre au texte de se réduire sans pousser l'image */}
-        <div className="flex-1 flex flex-col justify-between p-5 min-w-0">
-          <div className="flex justify-between items-start gap-4">
-            <div className="min-w-0">
-              <h3 className="font-black text-xl text-gray-900 leading-tight truncate">
-                {facility.name}
-              </h3>
-              <p className="text-gray-400 font-bold text-xs uppercase tracking-widest">
-                {facility.sport}
-              </p>
-              <p className="text-gray-400 text-sm mt-2 font-medium truncate">
-                📍 {facility.address}
-              </p>
+        <div className="flex-1 p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-start">
+              <h3 className={`text-lg font-bold ${theme.text}`}>{facility.name} <span className="border rounded-[24px] bg-gray-100 dark:bg-white/5 text-[10px] px-2 py-0.5 rounded font-bold text-gray-500" style={{paddingLeft: '5px', paddingRight: '5px'}}>{facility.sport}</span></h3>
             </div>
-
-            <div className="text-right flex-shrink-0">
-              <div className="text-yellow-500 font-black flex items-center justify-end gap-1">
-                <span>★</span><span>{facility.rating}</span>
-              </div>
-              <div className="font-black text-gray-900 text-lg mt-1">
-                {facility.pricePerHour} PLN/h
-              </div>
+            <p className={`${theme.subText} text-xs mt-1`}><MapPin size={18} style={{marginRight: '5px'}}/>{facility.address}</p>
+            <div className="flex items-center gap-4 mt-3">
+              <span className="text-yellow-400 text-xs"><Star size={20} fill="#FDC700" color="#FDC700" /> <span className={theme.text}>{facility.rating}</span></span>
+              <span className={`text-xs font-bold ${theme.text}`}><DollarSign size={18} style={{marginLeft: '10px'}} />{facility.pricePerHour} PLN <span className="text-gray-400 font-normal">/hour</span></span>
+            </div>
+            <div className="flex gap-2 mt-3">
+              {facility.tags.slice(0, 3).map((tag: any) => (
+                  <span key={tag} className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 rounded-md text-gray-500 font-medium" style={{paddingLeft: '5px', paddingRight: '5px', marginTop: '10px', marginBottom: '10px', marginRight: '5px'}}>{tag}</span>
+              ))}
             </div>
           </div>
-
-          {/* Boutons d'action */}
-          <div className="flex gap-3 mt-4">
-            <button className="flex-1 bg-gray-900 text-white py-3 rounded-2xl font-black text-sm hover:bg-black transition">
-              Book Now
-            </button>
-            <button className="px-6 py-3 border-2 border-gray-100 rounded-2xl font-black text-sm text-gray-500 hover:bg-gray-50 transition">
-              Details
-            </button>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-black text-white text-xs font-bold py-2.5 rounded-xl transition-colors hover:bg-gray-800">Book Now</button>
+            <button onClick={() => onDetails(facility)} className={`px-4 border bg-black text-white text-xs font-bold rounded-xl transition-colors hover:bg-gray-50 dark:hover:bg-white/5`}>Details</button>
           </div>
         </div>
       </div>

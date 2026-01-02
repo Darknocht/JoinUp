@@ -1,87 +1,20 @@
 import React, { useState } from 'react';
 import { SessionCard } from '../components/SessionCard';
 import type { Session } from '../types';
-import { useDarkMode } from "../usefullFunctions.ts";
-import { DollarSign, MapPin, Star, X } from "lucide-react";
+import {Calendar, Clock, DollarSign, MapPin, Star, Users, X} from "lucide-react";
+import {getColors, getTheme, useDarkMode} from "../usefullFunctions.ts";
+import {mockSessions, mockMySessions} from "../mockData.ts";
 
 interface SessionsPageProps {
   onOpenCreate: () => void;
 }
 
-const mockSessions: Session[] = [
-  {
-    id: '1',
-    sport: 'Padel',
-    clubName: 'Wrocław Padel Club',
-    level: 'Intermediate',
-    date: '10/29/2025',
-    time: '18:00',
-    currentPlayers: 3,
-    maxPlayers: 4,
-    description: 'Looking for one more player for a friendly doubles match!',
-    image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: '2',
-    sport: 'Basketball',
-    clubName: 'Arena Basketball Center',
-    level: 'Advanced',
-    date: '10/30/2025',
-    time: '20:00',
-    currentPlayers: 8,
-    maxPlayers: 10,
-    description: 'Competitive 5v5 game. Must be able to play full court.',
-    image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: '3',
-    sport: 'Football',
-    clubName: 'Stadion Olimpijski',
-    level: 'Beginner',
-    date: '10/29/2025',
-    time: '19:00',
-    currentPlayers: 14,
-    maxPlayers: 22,
-    description: 'Casual 11v11 match, everyone welcome!',
-    image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: '4',
-    sport: 'Volleyball',
-    clubName: 'Beach Volleyball Arena',
-    level: 'Intermediate',
-    date: '10/31/2025',
-    time: '17:00',
-    currentPlayers: 5,
-    maxPlayers: 8,
-    description: 'Beach volleyball fun session. 4v4 rotating teams.',
-    image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80'
-  }
-];
-
-const mockMySessions: Session[] = [];
-
 export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
   const [activeSubTab, setActiveSubTab] = useState<'public' | 'mine'>('public');
-  const isDarkMode = useDarkMode();
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
-
-  const colors = {
-    bgPage: isDarkMode ? '#121212' : '#F9FAFB',
-    bgCard: isDarkMode ? '#1E1E1E' : '#FFFFFF',
-    bgInput: isDarkMode ? '#2D2D2D' : '#F3F4F6',
-    textMain: isDarkMode ? '#FFFFFF' : '#111827',
-    textSecondary: isDarkMode ? '#A0A0A0' : '#6B7280',
-    border: isDarkMode ? '#333333' : '#F3F4F6',
-  };
-
-  const theme = {
-    bg: isDarkMode ? 'bg-[#0f0f0f]' : 'bg-[#F9FAFB]',
-    card: isDarkMode ? 'bg-[#1E1E1E] border-white/5' : 'bg-white border-gray-100',
-    text: isDarkMode ? 'text-white' : 'text-gray-900',
-    subText: isDarkMode ? 'text-gray-400' : 'text-gray-500',
-    input: isDarkMode ? 'bg-[#1E1E1E] text-white' : 'bg-[#F1F3F5] text-gray-700',
-  };
+  const isDarkMode = useDarkMode();
+  const colors = getColors(isDarkMode);
+  const theme = getTheme(isDarkMode);
 
   return (
       <div className="p-6 min-h-screen pb-24 md:pb-6">
@@ -188,46 +121,39 @@ export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
                 <div className="w-full flex flex-col">
                   <h3 className={`text-lg font-bold ${theme.text}`} style={{ marginBottom: '0em' }}>
                     {selectedSession.clubName}
-                    <span className="border rounded-[24px] bg-gray-100 dark:bg-white/5 text-[10px] px-2 py-0.5 rounded font-bold text-gray-500 ml-2" style={{ paddingLeft: '5px', paddingRight: '5px' }}>
+                    <span className="border rounded-[24px] bg-gray-100 dark:bg-white/5 text-[10px] px-2 py-0.5 rounded font-bold text-gray-500 ml-2" style={{ paddingLeft: '5px', paddingRight: '5px', marginLeft: '1em' }}>
               {selectedSession.sport}
             </span>
                   </h3>
 
                   <p className={`${theme.subText} text-sm flex items-center gap-1.5 mb-6`} style={{ marginTop: '0em', marginBottom: '0.5em' }}>
-                    <MapPin size={18} /> Wrocław, Poland
+                    <MapPin size={18} /> {selectedSession.address}
                   </p>
 
                   <div className="flex items-center gap-6 mb-8">
                     <div className="flex items-center gap-4 mt-3">
               <span className="text-yellow-400 text-xs">
                 <Star size={20} fill="#FDC700" color="#FDC700" />
-                <span className={theme.text}> 4.8</span>
+                <span className={theme.text}>{selectedSession.rating}</span>
               </span>
                       <span className={`text-xs font-bold ${theme.text}`}>
-                <DollarSign size={18} style={{ marginLeft: '10px' }} /> 80 PLN <span className="text-gray-400 font-normal">/session</span>
+                <DollarSign size={18} style={{ marginLeft: '10px' }} /> {selectedSession.pricePerHour} PLN <span className="text-gray-400 font-normal">/session</span>
               </span>
                     </div>
                   </div>
-
-                  <div className="flex flex-wrap gap-2 mb-8">
-            <span className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 text-gray-500 font-medium">
-              {selectedSession.level}
-            </span>
-                    <span className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 text-gray-500 font-medium">
-              {selectedSession.date} at {selectedSession.time}
-            </span>
-                    <span className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 text-gray-500 font-medium">
-              {selectedSession.currentPlayers}/{selectedSession.maxPlayers} players
-            </span>
+                  <div className="flex gap-2 mt-3">
+                    {selectedSession.tags.map(tag => (
+                        <span key={tag} className="border rounded-[24px] bg-gray-50 dark:bg-white/5 text-[10px] px-2 py-1 rounded-md text-gray-500 font-medium" style={{paddingLeft: '5px', paddingRight: '5px', marginTop: '10px', marginBottom: '10px', marginRight: '5px'}}>{tag}</span>
+                    ))}
                   </div>
-
                   <p className="text-blue-500 text-sm font-medium mb-8 italic" style={{ marginTop: '0em' }}>
                     {selectedSession.description}
                   </p>
-
-                  <button className="w-full bg-[#050509] text-white font-bold py-4 rounded-2xl text-lg transition-transform active:scale-95 shadow-lg">
-                    Join Session
-                  </button>
+                  <div className="flex flex-col gap-2 text-sm font-medium items-start text-gray-700 mb-3" style={{marginBottom: '2em'}}>
+                    <span><Calendar size={18} /> {selectedSession.date}</span>
+                    <span><Clock size={18} /> {selectedSession.time}</span>
+                    <span><Users size={18} /> {selectedSession.currentPlayers}/{selectedSession.maxPlayers} players</span>
+                  </div>
                 </div>
               </div>
             </div>

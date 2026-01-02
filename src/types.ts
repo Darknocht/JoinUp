@@ -1,6 +1,5 @@
 // types.ts
 
-// Définition des sports disponibles dans l'application [cite: 35, 120, 179]
 export type SportType = 'Padel' | 'Basketball' | 'Football' | 'Tennis' | 'Volleyball';
 
 export interface Facility {
@@ -25,6 +24,10 @@ export interface Session {
   maxPlayers: number;
   description: string;
   image: string;
+  address: string;
+  rating: number;
+  pricePerHour: number;
+  tags: string[];
 }
 
 export interface ActivityEntry {

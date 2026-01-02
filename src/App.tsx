@@ -13,20 +13,21 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('Home');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const renderContent = () => {
-    switch (activeTab) {
-        case 'Home':
-            return <HomePage/>
-        case 'Discover':
-            return <DiscoverPage />;
-        case 'Sessions':
-            return <SessionsPage onOpenCreate={() => setIsModalOpen(true)} />;
-        case 'Profile':
-            return <ProfilePage />;
-        default:
-            return <HomePage />;
-    }
-  };
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'Home':
+                // CORRECTION : Passer la fonction setActiveTab à la prop onTabChange
+                return <HomePage onTabChange={setActiveTab} />;
+            case 'Discover':
+                return <DiscoverPage />;
+            case 'Sessions':
+                return <SessionsPage onOpenCreate={() => setIsModalOpen(true)} />;
+            case 'Profile':
+                return <ProfilePage />;
+            default:
+                return <HomePage onTabChange={setActiveTab} />;
+        }
+    };
 
     return (
         <div className="flex flex-col min-h-screen">

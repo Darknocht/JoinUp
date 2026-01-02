@@ -1,14 +1,17 @@
 import React from 'react';
 import { MapPin, Users, Trophy, TrendingUp } from 'lucide-react';
 
-export const HomePage: React.FC = () => {
+// Ajout de l'interface pour recevoir la fonction de changement d'onglet
+interface HomePageProps {
+    onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
+}
+
+export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
     return (
         <div className=" min-h-screen min-w-full">
 
             {/* --- SECTION HÉROS --- */}
-            {/* On s'assure que la section prend toute la largeur disponible */}
             <section className=" px-8 py-20 md:py-32 text-white" style={{ backgroundColor: '#2563eb', paddingBottom: '16px' }}>
-                {/* max-w-none ou un max-w très large pour ne pas limiter le contenu au centre si vous voulez du vrai plein écran */}
                 <div className="max-w-7xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight" style={{color: '#FFFFFF'}}>
                         Play Sports.<br />
@@ -20,6 +23,7 @@ export const HomePage: React.FC = () => {
                     </p>
                     <div className="flex flex-wrap gap-4">
                         <button
+                            onClick={() => onTabChange('Discover')} // Redirection vers Discover
                             className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors"
                             style={{ backgroundColor: '#ffffff', color: '#2563eb', marginLeft: '16px', marginRight: '16px' }}
                         >
@@ -27,6 +31,7 @@ export const HomePage: React.FC = () => {
                             Find Facilities
                         </button>
                         <button
+                            onClick={() => onTabChange('Sessions')} // Redirection vers Sessions
                             className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border transition-colors"
                             style={{ backgroundColor: '#ffffff', color: '#2563eb' }}
                         >
@@ -116,6 +121,7 @@ export const HomePage: React.FC = () => {
                             Explore sports facilities on our interactive map and book your first session today.
                         </p>
                         <button
+                            onClick={() => onTabChange('Discover')} // Redirection vers Discover
                             className="w-full md:w-auto px-12 py-3 rounded-xl font-bold transition-colors shadow-lg"
                             style={{backgroundColor: '#ffffff', color: '#2563eb' }}
                         >
