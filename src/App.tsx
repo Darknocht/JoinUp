@@ -16,7 +16,6 @@ const App: React.FC = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 'Home':
-                // CORRECTION : Passer la fonction setActiveTab à la prop onTabChange
                 return <HomePage onTabChange={setActiveTab} />;
             case 'Discover':
                 return <DiscoverPage />;
@@ -32,8 +31,6 @@ const App: React.FC = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-
-            {/* Ajout de pt-20 (padding-top) pour compenser la barre fixe */}
             <main className="flex-1 pt-20 px-4 sm:px-6 relative z-10">
                 <div className="w-full" style={{paddingTop: '2.5em'}}>
                     {renderContent()}

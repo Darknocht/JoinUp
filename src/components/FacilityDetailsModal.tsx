@@ -1,6 +1,8 @@
 import { X, MapPin, Star, DollarSign } from "lucide-react";
+import {getTheme, useDarkMode} from "../usefullFunctions.ts";
 
 export const FacilityDetailsModal = ({ selectedFacility, theme, onClose }: any) => {
+    const isDarkMode = useDarkMode();
     return (
         <div
             className="fixed w-full inset-0 z-[10000] flex items-center justify-center bg-black/45 backdrop-blur-md p-4"
@@ -8,10 +10,10 @@ export const FacilityDetailsModal = ({ selectedFacility, theme, onClose }: any) 
             onClick={onClose}
         >
             <div
-                className={`${theme.card} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
+                className={`${getTheme(isDarkMode).bg} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
                 onClick={(e) => e.stopPropagation()}
             >
-                <button onClick={onClose} className="absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10" style={{marginLeft: '40em'}}>
+                <button onClick={onClose} className={`${getTheme(isDarkMode).input}absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10`} style={{marginLeft: '40em'}}>
                     <X size={20} /> <span className="text-sm font-bold">Close</span>
                 </button>
 
@@ -49,7 +51,7 @@ export const FacilityDetailsModal = ({ selectedFacility, theme, onClose }: any) 
                         Looking for one more player for a friendly doubles match!
                     </p>
                 </div>
-                <button className="w-full bg-[#050509] text-white font-bold py-4 rounded-2xl text-lg transition-transform active:scale-95 shadow-lg">
+                <button className={`w-full ${getTheme(isDarkMode).input} text-white font-bold py-4 rounded-2xl text-lg transition-transform active:scale-95 shadow-lg`}>
                     Book Now
                 </button>
             </div>

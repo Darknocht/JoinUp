@@ -21,7 +21,6 @@ export const useDarkMode = (): boolean => {
     return isDark;
 };
 
-// TRANSFORMER EN FONCTIONS
 export const getColors = (isDarkMode: boolean) => ({
     bgPage: isDarkMode ? '#121212' : '#F9FAFB',
     bgCard: isDarkMode ? '#1E1E1E' : '#FFFFFF',
@@ -34,14 +33,13 @@ export const getColors = (isDarkMode: boolean) => ({
 });
 
 export const getTheme = (isDarkMode: boolean) => ({
-    bg: isDarkMode ? 'bg-[#0f0f0f]' : 'bg-[#F9FAFB]',
+    bg: isDarkMode ? 'bg-[#1e1e1e]' : 'bg-[#F9FAFB]',
     card: isDarkMode ? 'bg-[#1E1E1E] border-white/5' : 'bg-white border-gray-100',
     text: isDarkMode ? 'text-white' : 'text-gray-900',
     subText: isDarkMode ? 'text-gray-400' : 'text-gray-500',
-    input: isDarkMode ? 'bg-[#1E1E1E] text-white' : 'bg-[#F1F3F5] text-gray-700',
+    input: isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F1F3F5] text-gray-700',
 });
 
-// Icônes Leaflet (Peuvent rester ainsi car elles n'appellent pas de Hooks)
 export const createCustomIcon = (color: string) => L.divIcon({
     html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
     className: '',

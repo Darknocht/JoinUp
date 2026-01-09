@@ -1,7 +1,6 @@
 import React from 'react';
 import { MapPin, Users, Trophy, TrendingUp } from 'lucide-react';
 
-// Ajout de l'interface pour recevoir la fonction de changement d'onglet
 interface HomePageProps {
     onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
 }
@@ -10,7 +9,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
     return (
         <div className=" min-h-screen min-w-full">
 
-            {/* --- SECTION HÉROS --- */}
+            {/* --- SECTION HERO --- */}
             <section className=" px-8 py-20 md:py-32 text-white" style={{ backgroundColor: '#2563eb', paddingBottom: '16px' }}>
                 <div className="max-w-7xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight" style={{color: '#FFFFFF'}}>
@@ -23,7 +22,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                     </p>
                     <div className="flex flex-wrap gap-4">
                         <button
-                            onClick={() => onTabChange('Discover')} // Redirection vers Discover
+                            onClick={() => onTabChange('Discover')}
                             className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors"
                             style={{ backgroundColor: '#ffffff', color: '#2563eb', marginLeft: '16px', marginRight: '16px' }}
                         >
@@ -31,7 +30,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                             Find Facilities
                         </button>
                         <button
-                            onClick={() => onTabChange('Sessions')} // Redirection vers Sessions
+                            onClick={() => onTabChange('Sessions')}
                             className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold border transition-colors"
                             style={{ backgroundColor: '#ffffff', color: '#2563eb' }}
                         >
@@ -48,7 +47,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                     <h2 className="text-3xl font-bold mb-16">Why JoinUp?</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Carte 1 */}
+                        {/* CARD 1 */}
                         <div className="bg-white p-8 rounded-2xl border flex flex-col items-center shadow-sm" style={{ borderColor: '#f3f4f6' }}>
                             <div className="mb-6 p-4 rounded-full" style={{color: '#2563eb' }}>
                                 <MapPin size={32} />
@@ -59,7 +58,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                             </p>
                         </div>
 
-                        {/* Carte 2 */}
+                        {/* CARD 2 */}
                         <div className="bg-white p-8 rounded-2xl border flex flex-col items-center shadow-sm" style={{ borderColor: '#f3f4f6' }}>
                             <div className="mb-6 p-4 rounded-full" style={{color: '#2563eb' }}>
                                 <Users size={32} />
@@ -70,7 +69,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                             </p>
                         </div>
 
-                        {/* Carte 3 */}
+                        {/* CARD 3 */}
                         <div className="bg-white p-8 rounded-2xl border flex flex-col items-center shadow-sm" style={{ borderColor: '#f3f4f6' }}>
                             <div className="mb-6 p-4 rounded-full" style={{color: '#2563eb' }}>
                                 <Trophy size={32} />
@@ -84,7 +83,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                 </div>
             </section>
 
-            {/* --- SECTION STATISTIQUES --- */}
+            {/* --- SECTION SKILLS --- */}
             <section className="py-12 border-y" style={{ borderColor: '#f3f4f6' }}>
                 <div className="max-w-6xl mx-auto px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -121,14 +120,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
                             Explore sports facilities on our interactive map and book your first session today.
                         </p>
                         <button
-                            onClick={() => onTabChange('Discover')} // Redirection vers Discover
+                            onClick={() => onTabChange('Discover')}
                             className="w-full md:w-auto px-12 py-3 rounded-xl font-bold transition-colors shadow-lg"
                             style={{backgroundColor: '#ffffff', color: '#2563eb' }}
                         >
                             Explore Map
                         </button>
                     </div>
-                    {/* Décoration en arrière-plan */}
                     <div
                         className="absolute top-0 right-0 w-64 h-64 opacity-10 rounded-full -mr-20 -mt-20"
                     ></div>

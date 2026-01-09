@@ -51,7 +51,7 @@ export const DiscoverPage: React.FC = () => {
   return (
       <div className={`flex flex-col lg:flex-row h-screen w-full ${theme.bg} font-sans overflow-hidden relative`}>
 
-        {/* --- SECTION CARTE (GAUCHE) --- */}
+        {/* --- SECTION CARD (LEFT) --- */}
         <div className="w-full lg:w-1/2 relative h-[400px] lg:h-full order-2 lg:order-1 border-r border-gray-200 dark:border-white/5">
           <div className="absolute inset-0 z-[1001] pointer-events-none p-6 flex flex-col justify-between">
             <div className="flex justify-start">
@@ -92,7 +92,7 @@ export const DiscoverPage: React.FC = () => {
           </MapContainer>
         </div>
 
-        {/* --- SECTION LISTE (DROITE) --- */}
+        {/* --- SECTION LIST (RIGHT) --- */}
         <div className="w-full lg:w-1/2 flex flex-col p-8 overflow-y-auto no-scrollbar h-full order-1 lg:order-2">
           <header className="mb-8">
             <h1 className={`text-2xl font-bold ${theme.text} mb-6`}>Discover Sports Facilities</h1>
@@ -103,18 +103,18 @@ export const DiscoverPage: React.FC = () => {
                 </span>
                 <input type="text" placeholder="Search facilities or locations..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={`w-9/10 py-3 pl-12 pr-4 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/20 border-none ${theme.input}`} style={{borderRadius: '8px', padding: '8px 16px', marginLeft: '10px'}} />
               </div>
-              <button className={`${theme.card} border px-4 rounded-xl flex items-center gap-2 text-sm font-bold shadow-sm hover:bg-opacity-80 transition-all`} style={{marginRight: '10px', padding: '5px', paddingRight: '10px'}}>
+              <button className={`${getTheme(isDarkMode).input} border px-4 rounded-xl flex items-center gap-2 text-sm font-bold shadow-sm hover:bg-opacity-80 transition-all`} style={{marginRight: '10px', padding: '5px', paddingRight: '10px'}}>
                 <Funnel size={16} style={{paddingLeft: '10px', paddingRight: '10px'}} className="text-gray-400" />
                 <span className={theme.text}>Filters</span>
               </button>
             </div>
 
             <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar" style={{marginBottom: '10px', marginTop: '10px'}}>
-              <button onClick={() => setActiveSport('All')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeSport === 'All' ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', marginLeft: '10px', backgroundColor: activeSport === 'All' ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '', color: activeSport === 'All' ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === 'All' ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : undefined }}>
+              <button onClick={() => setActiveSport('All')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeSport === 'All' ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', marginLeft: '10px', backgroundColor: activeSport === 'All' ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '#F1F3F5', color: activeSport === 'All' ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === 'All' ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : undefined }}>
                 All Sports
               </button>
               {sports.map((sport) => (
-                  <button key={sport} onClick={() => setActiveSport(sport)} className={`px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${activeSport === sport ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', backgroundColor: activeSport === sport ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '', color: activeSport === sport ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === sport ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : '1px solid transparent' }}>
+                  <button key={sport} onClick={() => setActiveSport(sport)} className={`px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${activeSport === sport ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', backgroundColor: activeSport === sport ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '#F1F3F5', color: activeSport === sport ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === sport ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : '1px solid transparent' }}>
                     {sport}
                   </button>
               ))}

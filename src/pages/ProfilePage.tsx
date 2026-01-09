@@ -38,7 +38,6 @@ export const ProfilePage: React.FC = () => {
                   <div>
                     <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '32px' }}>🏆 Activity Overview</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                      {/* ... (Contenu identique à ton code original pour garder le style) */}
                       <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '14px' }}>
                           <span style={{ color: colors.textSecondary }}>Games Played</span>

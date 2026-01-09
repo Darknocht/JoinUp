@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import type { SportType } from '../types';
 import { X, Upload } from 'lucide-react';
-import { useDarkMode } from "../usefullFunctions.ts";
+import { useDarkMode, getTheme} from "../usefullFunctions.ts";
 
 export const CreateSessionModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const isDarkMode = useDarkMode();
@@ -47,8 +47,7 @@ export const CreateSessionModal: React.FC<{ isOpen: boolean; onClose: () => void
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Données soumises :', formData);
-    // Ici tu peux appeler ta fonction de création
+    console.log('Data send :', formData);
   };
 
   return (
@@ -58,13 +57,13 @@ export const CreateSessionModal: React.FC<{ isOpen: boolean; onClose: () => void
           onClick={onClose}
       >
         <div
-            className={`${theme.card} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
+            className={`${getTheme(isDarkMode).bg} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
             onClick={(e) => e.stopPropagation()}
-            style={{ maxHeight: '90vh', overflowY: 'auto', backgroundColor: "#FFFF00"}}
+            style={{ maxHeight: '90vh', overflowY: 'auto', backgroundColor: getTheme(isDarkMode).bg}}
         >
           <button
               onClick={onClose}
-              className="absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10"
+              className={`${getTheme(isDarkMode).input} absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10`}
               style={{ marginLeft: '40em' }}
           >
             <X size={20} /> <span className="text-sm font-bold">Close</span>

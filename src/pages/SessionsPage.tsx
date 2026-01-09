@@ -55,7 +55,7 @@ export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
           ))}
         </div>
 
-        {/* Grille */}
+        {/* Grid */}
         {(() => {
           const currentSessions = activeSubTab === 'public' ? mockSessions : mockMySessions;
 
@@ -93,14 +93,14 @@ export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
                 onClick={() => setSelectedSession(null)}
             >
               <div
-                  className={`${theme.card} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
+                  className={`${getTheme(isDarkMode).bg} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
                   onClick={(e) => e.stopPropagation()}
                   style={{ maxHeight: '90vh', overflowY: 'auto' }}
               >
-                {/* Bouton Fermer */}
+                {/* Button close */}
                 <button
                     onClick={() => setSelectedSession(null)}
-                    className="absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10"
+                    className={`${getTheme(isDarkMode).input}absolute top-6 right-8 flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors z-10`}
                     style={{marginLeft: '40em'}}
                 >
                   <X size={20} /> <span className="text-sm font-bold" >Close</span>
@@ -117,7 +117,7 @@ export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
                   </div>
                 </div>
 
-                {/* Contenu */}
+                {/* Content */}
                 <div className="w-full flex flex-col">
                   <h3 className={`text-lg font-bold ${theme.text}`} style={{ marginBottom: '0em' }}>
                     {selectedSession.clubName}

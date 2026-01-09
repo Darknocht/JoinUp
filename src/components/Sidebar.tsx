@@ -18,7 +18,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
                 borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#e5e7eb'
             }}
         >
-            {/* Partie Gauche */}
+            {/* Left part */}
             <div className="flex items-center gap-3 shrink-0">
                 <div
                     className="text-white w-10 h-10 min-w-[40px] rounded-xl flex items-center justify-center font-bold text-lg shadow-lg"
@@ -33,7 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
                 </div>
             </div>
 
-            {/* Partie Droite */}
+            {/* Right part */}
             <div className="flex flex-row items-center" style={{ paddingRight: '20px' }}>
                 <NavItem
                     icon={<Home size={18} />}
@@ -75,7 +75,6 @@ const NavItem = ({ icon, label, active = false, onClick }: NavItemProps) => (
     <button
         onClick={onClick}
         type="button"
-        // Modification : On s'assure que bg-transparent est utilisé par défaut
         className={`flex flex-row items-center justify-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-300 shrink-0 bg-transparent ${
             active
                 ? 'text-white shadow-lg shadow-blue-900/20'
@@ -83,7 +82,6 @@ const NavItem = ({ icon, label, active = false, onClick }: NavItemProps) => (
         }`}
         style={{
             marginRight: '16px',
-            // L'arrière-plan bleu ne s'applique QUE si active est vrai
             ...(active ? { backgroundColor: '#2563eb', color: '#FFFFFF' } : { backgroundColor: 'transparent' })
         }}
     >
