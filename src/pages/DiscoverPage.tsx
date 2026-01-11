@@ -8,6 +8,7 @@ import { FacilityDetailsModal } from '../components/FacilityDetailsModal';
 import type {SportType} from "../types.ts";
 import {facilitiesData} from "../mockData.ts";
 import {createCustomIcon} from "../usefullFunctions.ts";
+import {BookingModal} from "../components/BookingModal.tsx";
 
 const sports: SportType[] = ['Padel', 'Basketball', 'Football', 'Tennis', 'Volleyball'];
 
@@ -31,6 +32,7 @@ export const DiscoverPage: React.FC = () => {
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFacility, setSelectedFacility] = useState<any>(null);
+  const [bookingFacility, setBookingFacility] = useState<any>(null);
 
   const bgPage = isDarkMode ? '#1E1E1E' : '#FFFFFF';
   const itemRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -129,6 +131,7 @@ export const DiscoverPage: React.FC = () => {
                     theme={theme}
                     highlightedId={highlightedId}
                     onDetails={setSelectedFacility}
+                    onBook={setBookingFacility}
                     itemRef={(el: any) => itemRefs.current[facility.id] = el}
                 />
             ))}
@@ -140,6 +143,13 @@ export const DiscoverPage: React.FC = () => {
                 selectedFacility={selectedFacility}
                 theme={theme}
                 onClose={() => setSelectedFacility(null)}
+            />
+        )}
+        {bookingFacility && (
+            <BookingModal
+                selectedFacility={bookingFacility}
+                theme={theme}
+                onClose={() => setBookingFacility(null)}
             />
         )}
       </div>

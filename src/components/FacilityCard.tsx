@@ -1,7 +1,7 @@
 import { MapPin, Star, DollarSign } from "lucide-react";
 import {getTheme, useDarkMode} from "../usefullFunctions.ts";
 
-export const FacilityCard = ({ facility, theme, highlightedId, onDetails, itemRef }: any) => {
+export const FacilityCard = ({ facility, theme, highlightedId, onDetails, onBook, itemRef }: any) => {
   const isDarkMode = useDarkMode();
   return (
       <div
@@ -29,7 +29,7 @@ export const FacilityCard = ({ facility, theme, highlightedId, onDetails, itemRe
             </div>
           </div>
           <div className="flex gap-2">
-            <button className={`flex-1 ${getTheme(isDarkMode).input} text-white text-xs font-bold py-2.5 rounded-xl transition-colors hover:bg-gray-800`}>Book Now</button>
+            <button onClick={() => onBook(facility)} className={`flex-1 ${getTheme(isDarkMode).input} text-white text-xs font-bold py-2.5 rounded-xl transition-colors hover:bg-gray-800`}>Book Now</button>
             <button onClick={() => onDetails(facility)} className={`px-4 border ${getTheme(isDarkMode).input} text-white text-xs font-bold rounded-xl transition-colors hover:bg-gray-50 dark:hover:bg-white/5`}>Details</button>
           </div>
         </div>
