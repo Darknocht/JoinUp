@@ -5,7 +5,7 @@ import {useDarkMode, getTheme} from "../usefullFunctions.ts";
 import { Funnel, MapPin } from "lucide-react";
 import { FacilityCard } from '../components/FacilityCard';
 import { FacilityDetailsModal } from '../components/FacilityDetailsModal';
-import type {SportType} from "../types.ts";
+import type {HomePageProps, SportType} from "../types.ts";
 import {facilitiesData} from "../mockData.ts";
 import {createCustomIcon} from "../usefullFunctions.ts";
 import {BookingModal} from "../components/BookingModal.tsx";
@@ -24,7 +24,7 @@ const ResizeMap = () => {
   return null;
 };
 
-export const DiscoverPage: React.FC = () => {
+export const DiscoverPage: React.FC<HomePageProps> = ({onTabChange}) => {
   const isDarkMode = useDarkMode();
   const theme = getTheme(isDarkMode);
 
@@ -112,11 +112,11 @@ export const DiscoverPage: React.FC = () => {
             </div>
 
             <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar" style={{marginBottom: '10px', marginTop: '10px'}}>
-              <button onClick={() => setActiveSport('All')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeSport === 'All' ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', marginLeft: '10px', backgroundColor: activeSport === 'All' ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '#F1F3F5', color: activeSport === 'All' ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === 'All' ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : undefined }}>
+              <button onClick={() => setActiveSport('All')} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${activeSport === 'All' ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', marginLeft: '10px', backgroundColor: activeSport === 'All' ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : (isDarkMode ? '' : '#F1F3F5'), color: activeSport === 'All' ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === 'All' ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : undefined }}>
                 All Sports
               </button>
               {sports.map((sport) => (
-                  <button key={sport} onClick={() => setActiveSport(sport)} className={`px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${activeSport === sport ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', backgroundColor: activeSport === sport ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : '#F1F3F5', color: activeSport === sport ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === sport ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : '1px solid transparent' }}>
+                  <button key={sport} onClick={() => setActiveSport(sport)} className={`px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${activeSport === sport ? '' : `border ${theme.subText}`}`} style={{ marginRight: '10px', backgroundColor: activeSport === sport ? (isDarkMode ? '#F9FAFB' : '#0f0f0f') : (isDarkMode ? '' : '#F1F3F5'), color: activeSport === sport ? (isDarkMode ? '#0f0f0f' : '#FFFFFF') : 'inherit', border: activeSport === sport ? `1px solid ${isDarkMode ? '#F9FAFB' : '#0f0f0f'}` : '1px solid transparent' }}>
                     {sport}
                   </button>
               ))}
@@ -149,6 +149,7 @@ export const DiscoverPage: React.FC = () => {
             <BookingModal
                 selectedFacility={bookingFacility}
                 theme={theme}
+                onTabChange={onTabChange}
                 onClose={() => setBookingFacility(null)}
             />
         )}

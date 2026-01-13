@@ -4,10 +4,7 @@ import type { Session } from '../types';
 import {Calendar, Clock, DollarSign, MapPin, Star, Users, X} from "lucide-react";
 import {getColors, getTheme, useDarkMode} from "../usefullFunctions.ts";
 import {mockSessions, mockMySessions} from "../mockData.ts";
-
-interface SessionsPageProps {
-  onOpenCreate: () => void;
-}
+import type {SessionsPageProps} from "../types";
 
 export const SessionsPage: React.FC<SessionsPageProps> = ({ onOpenCreate }) => {
   const [activeSubTab, setActiveSubTab] = useState<'public' | 'mine'>('public');

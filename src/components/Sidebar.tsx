@@ -1,10 +1,6 @@
 import { Home, Search, Calendar, User } from 'lucide-react';
 import {useDarkMode} from "../usefullFunctions.ts";
-
-interface SidebarProps {
-    activeTab: 'Home' | 'Discover' | 'Sessions' | 'Profile';
-    onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
-}
+import type {SidebarProps} from "../types.ts";
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
     const isDark = useDarkMode();

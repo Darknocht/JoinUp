@@ -1,12 +1,7 @@
 import React from 'react';
-import type { Session } from '../types';
+import type { SessionCardProps } from '../types';
 import {Calendar, Clock, Users} from "lucide-react";
 import {useDarkMode} from "../usefullFunctions.ts";
-
-interface SessionCardProps {
-  session: Session;
-  onAction: () => void;
-}
 
 export const SessionCard: React.FC<SessionCardProps> = ({ session, onAction }) => {
   const spotsLeft = session.maxPlayers - session.currentPlayers;

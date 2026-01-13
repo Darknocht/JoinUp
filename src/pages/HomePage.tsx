@@ -1,9 +1,6 @@
 import React from 'react';
 import { MapPin, Users, Trophy, TrendingUp } from 'lucide-react';
-
-interface HomePageProps {
-    onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
-}
+import type {HomePageProps} from '../types';
 
 export const HomePage: React.FC<HomePageProps> = ({ onTabChange }) => {
     return (

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { X, MapPin, Star, DollarSign, Calendar, Clock } from "lucide-react";
 import { getTheme, useDarkMode } from "../usefullFunctions.ts";
+import {SuccessPage} from "../pages/SuccessPage.tsx";
 
-export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
+export const BookingModal: React.FC<any> = ({ selectedFacility, theme, onClose, onTabChange }: any) => {
     const isDarkMode = useDarkMode();
     const [step, setStep] = useState<'selection' | 'payment'>('selection');
     const [bookingData, setBookingData] = useState({
@@ -12,11 +13,27 @@ export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
         expiry: '',
         cvv: ''
     });
+    const [isPaid, setIsPaid] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setBookingData(prev => ({ ...prev, [name]: value }));
     };
+
+    if (isPaid) {
+        return (
+            <div className="fixed inset-0 z-[20000] bg-white dark:bg-[#1E1E1E]">
+                <SuccessPage
+                    bookingData={bookingData}
+                    facility={selectedFacility}
+                    onTabChange={() => {
+                        onTabChange('Sessions');
+                        onClose(); // Ferme la modal
+                    }}
+                />
+            </div>
+        );
+    }
 
     return (
         <div
@@ -27,7 +44,6 @@ export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
             <div
                 className={`${getTheme(isDarkMode).bg} w-full max-w-[850px] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row p-6 md:p-10 gap-6 md:gap-12 items-center`}
                 onClick={(e) => e.stopPropagation()}
-                /* Ajout du scroll ici pour gérer les petits écrans comme dans CreateSessionModal */
                 style={{ maxHeight: '90vh', overflowY: 'auto' }}
             >
                 <button
@@ -38,7 +54,7 @@ export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
                     <X size={20} /> <span className="text-sm font-bold">Close</span>
                 </button>
 
-                {/* SECTION GAUCHE */}
+                {/* RIGHT SECTION*/}
                 <div className="w-full md:w-auto flex flex-col items-center shrink-0">
                     <div className="w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-[24px] overflow-hidden shadow-xl">
                         <img
@@ -62,7 +78,7 @@ export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
                     )}
                 </div>
 
-                {/* SECTION DROITE */}
+                {/* RIGHT SECTION */}
                 <div className="w-full flex flex-col no-scrollbar">
                     <h3 className={`text-lg font-bold ${theme.text}`} style={{ marginBottom: '0em' }}>
                         {selectedFacility.name}
@@ -143,7 +159,7 @@ export const BookingModal = ({ selectedFacility, theme, onClose }: any) => {
 
                             <button
                                 className="w-full bg-blue-600 text-white font-black py-4 rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition transform active:scale-95 mt-4"
-                                onClick={() => console.log("Paid", bookingData)}
+                                onClick={() => setIsPaid(true)} // Changez le console.log par ceci
                                 style={{ marginBottom: '1em' }}
                             >
                                 Pay

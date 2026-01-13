@@ -48,3 +48,27 @@ export interface UserProfile {
   badgesCount: number; // [cite: 159, 232]
   progressToNextLevel: number; // Pourcentage (ex: 70%) [cite: 160, 234]
 }
+
+export interface HomePageProps {
+  onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
+}
+
+export interface SuccessPageProps {
+  bookingData: any;
+  facility: any;
+  onTabChange: () => void;
+}
+
+export interface SessionsPageProps {
+  onOpenCreate: () => void;
+}
+
+export interface SessionCardProps {
+  session: Session;
+  onAction: () => void;
+}
+
+export interface SidebarProps {
+  activeTab: 'Home' | 'Discover' | 'Sessions' | 'Profile';
+  onTabChange: (tab: 'Home' | 'Discover' | 'Sessions' | 'Profile') => void;
+}

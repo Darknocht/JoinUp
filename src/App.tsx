@@ -18,7 +18,7 @@ const App: React.FC = () => {
             case 'Home':
                 return <HomePage onTabChange={setActiveTab} />;
             case 'Discover':
-                return <DiscoverPage />;
+                return <DiscoverPage onTabChange={setActiveTab}/>;
             case 'Sessions':
                 return <SessionsPage onOpenCreate={() => setIsModalOpen(true)} />;
             case 'Profile':

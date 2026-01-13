@@ -11,7 +11,7 @@ export const mockSessions: Session[] = [
         currentPlayers: 3,
         maxPlayers: 4,
         description: 'Looking for one more player for a friendly doubles match!',
-        image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80',
+        image: 'https://kluby.org/upload/kluby/871/zdjecia/1.jpg?v=1691683193',
         address: 'ul. Sportowa 12, Wrocław',
         rating: 4.8,
         pricePerHour: 80,
@@ -99,7 +99,7 @@ export const badgesList = [
 ];
 
 export const facilitiesData = [
-    { id: '1', name: 'Wrocław Padel Club', sport: 'Padel', address: 'ul. Sportowa 12, Wrocław', rating: 4.8, pricePerHour: 80, tags: ['Parking', 'Showers', 'Equipment Rental', 'Outside and Inside'], image: 'https://images.unsplash.com/photo-1592910710242-70656469236a?auto=format&fit=crop&w=600&q=80', position: [51.1079, 17.0385] as [number, number], isAvailable: true },
+    { id: '1', name: 'Wrocław Padel Club', sport: 'Padel', address: 'ul. Sportowa 12, Wrocław', rating: 4.8, pricePerHour: 80, tags: ['Parking', 'Showers', 'Equipment Rental', 'Outside and Inside'], image: 'https://kluby.org/upload/kluby/871/zdjecia/1.jpg?v=1691683193', position: [51.1079, 17.0385] as [number, number], isAvailable: true },
     { id: '2', name: 'Arena Basketball Center', sport: 'Basketball', address: 'ul. Grabiszyńska 45, Wrocław', rating: 4.6, pricePerHour: 60, tags: ['Indoor Court', 'Lockers', 'LED Lighting', 'Parking', 'Showers'], image: 'https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&w=600&q=80', position: [51.0950, 17.0150] as [number, number], isAvailable: true },
     { id: '3', name: 'Stadion Olimpijski', sport: 'Football', address: 'ul. Paderewskiego 35, Wrocław', rating: 4.9, pricePerHour: 120, tags: ['Grass Field', 'Floodlights', 'Changing Rooms', 'Parking'], image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80', position: [51.1180, 17.0980] as [number, number], isAvailable: false }
 ];
